@@ -9,6 +9,8 @@
 <!-- other green #B6C9BB -->
 <!-- Green Gray #BFEDC1 -->
 
+<!-- screen snippent Shift command -4, or -3 for whole screen -->
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -105,8 +107,12 @@ html,body,h1,h2,h3,h4,h5 {
 }
 
 .responsive {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 310px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
 
@@ -163,10 +169,12 @@ html,body,h1,h2,h3,h4,h5 {
 
     </div>
     <div class=" imageModal w3-panel">
+      <h3>{{entry.questionText}}</h3>
 
-      <p>image goes here</p>
-      <img src="/Users/DWEBB/Desktop/Oops-computer-error.jpg" alt="Error, No image File" class="responsive">
-      <img src="{% static "/Users/DWEBB/Desktop/pilotQuiz/pilotQuiz/static/Oops-computer-error.jpg" %}" alt="Error, Still No image File" class="responsive" >
+      <hr>
+
+      <img src="{{ entry.image.url}}" alt="I dont understand" class = " responsive" width="800" height="300">
+
       </div>
     </div>
   </div>
@@ -282,6 +290,12 @@ html,body,h1,h2,h3,h4,h5 {
 
 <p>{{testvariable}}</p>
 <p> the data field says: {{entry.questionText}}</p>
+
+<p>this is an attempt to access the image outside the modal</p>
+
+<img src="{% static "Oops-computer-error.jpg" %}" alt=" still nothing, you fucking suck"/>
+
+<!--/Users/DWEBB/Desktop/Recovery/pilotQuiz/static/Oops-computer-error.jpg-->
 
 <div id="Jane" class="w3-container person">
   <br>
