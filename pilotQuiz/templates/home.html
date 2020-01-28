@@ -96,7 +96,8 @@ html,body,h1,h2,h3,h4,h5 {
 
 .imageModal{
   height: 400px;
-
+  max-height: 100%;
+  max-width: 100%;
 
 }
 
@@ -115,6 +116,18 @@ html,body,h1,h2,h3,h4,h5 {
 
 }
 
+.restrictedImage{
+
+
+  width: auto;
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  max-height: 85%;
+  max-width: 85%;
+}
 
 
 </style>
@@ -138,13 +151,22 @@ html,body,h1,h2,h3,h4,h5 {
 
 <!-- Side bar question item -->
 
-    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" onclick="openMail('Borge');w3_close();" id="firstTab">
+{% for specificQuestions in data.all %}
+
+    <a href="javascript:void(0)"  class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey"  id="firstTab" >
+    <form action="{% url 'homePage' %}">
+    <button type = "submit" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey"  id="firstTab" name="selectedValue" value="{{specificQuestions.QuestionReferenceCode}}" >
       <div class="w3-container">
-        <img class="w3-round w3-margin-right" src="/w3images/avatar3.png" style="width:15%;">
-        <h6>Question 1</h6>
-        <p>This is Question Text</p>
+        <!--img class="w3-round w3-margin-right" src="/w3images/avatar3.png" style="width:15%;"-->
+        <h6 id= "selectedQuestion">{{specificQuestions.QuestionReferenceCode}}</h6>
+
+        <p>{{specificQuestions.questionText}}</p>
       </div>
+    </button>
+    </form>
     </a>
+
+  {% endfor %}
 
 <!------->
 
@@ -173,7 +195,7 @@ html,body,h1,h2,h3,h4,h5 {
 
       <hr>
 
-      <img src="{{ entry.image.url}}" alt="I dont understand" class = " responsive" width="800" height="300">
+      <img class="restrictedImage" src="{{ entry.image.url}}" alt="Image Not Working" >
 
       </div>
     </div>
@@ -191,8 +213,8 @@ html,body,h1,h2,h3,h4,h5 {
 <div id="Borge" class="w3-container person">
   <br>
 
-  <h5 class="w3-opacity">Question 1-5: Systems Electical</h5>
-  <h4><i class="fa "></i>Which generator powers the blue hydraulic pump during normal operations?</h4>
+  <h5 class="w3-opacity">{{entry.QuestionReferenceCode}} {{entry.topic}}</h5>
+  <h4><i class="fa "></i>{{entry.questionText}}</h4>
 
 
 
@@ -209,8 +231,8 @@ html,body,h1,h2,h3,h4,h5 {
     </div>
     <div class="optionTextBlock">
 
-        <h4 class="optionText">AC Generator 1</h4>
-        <p class="descriptor" id="descriptor1">Correct! The blue hydraulic system is normally powered by AC BUS 1</p>
+        <h4 class="optionText">{{entry.answer}}</h4>
+        <p class="descriptor" id="descriptor1">Correct!  {{entry.answerDetails}}</p>
 
     </div>
 
@@ -226,8 +248,8 @@ html,body,h1,h2,h3,h4,h5 {
       </div>
       <div class="optionTextBlock">
 
-          <h4 class="optionText">AC Generator 2</h4>
-          <p class="descriptor" id="descriptor2">Incorrect! the Blue hydraulic system is normally powered by AC BUS 1 and generator 1</p>
+          <h4 class="optionText">{{entry.herring1}}</h4>
+          <p class="descriptor" id="descriptor2">Incorrect! {{entry.herringDetails1}}</p>
 
       </div>
 
@@ -245,8 +267,8 @@ html,body,h1,h2,h3,h4,h5 {
   </div>
   <div class="optionTextBlock">
 
-      <h4 class="optionText">APU Generator</h4>
-      <p class="descriptor" id="descriptor3">secondary descriptor</p>
+      <h4 class="optionText">{{entry.herring2}}</h4>
+      <p class="descriptor" id="descriptor3">Incorrect! {{entry.herringDetails2}}</p>
 
   </div>
 
@@ -262,8 +284,8 @@ html,body,h1,h2,h3,h4,h5 {
       </div>
       <div class="optionTextBlock">
 
-          <h4 class="optionText">Emergency Generator</h4>
-          <p class="descriptor" id="descriptor4">secondary descriptor</p>
+          <h4 class="optionText">{{entry.herring3}}</h4>
+          <p class="descriptor" id="descriptor4">Incorrect {{entry.herringDetails3}}</p>
 
       </div>
 
@@ -324,10 +346,13 @@ html,body,h1,h2,h3,h4,h5 {
 </div>
 
 <script>
+var selectedFromSideBar = ""
 var openInbox = document.getElementById("myBtn");
 var selected = 0;
 var correct = 1;
 var questionPassed = false;
+
+console.log ("the console is working")
 
 document.getElementById('submitButton').addEventListener("click", submitSelection);
 
@@ -337,6 +362,12 @@ document.getElementById("firstButton").addEventListener("click", selectOne);
 document.getElementById("secondButton").addEventListener("click", selectTwo);
 document.getElementById("thirdButton").addEventListener("click", selectThree);
 document.getElementById("fourthButton").addEventListener("click", selectFour);
+
+
+function questionSelect(x){
+  selectedFromSideBar = x;
+  console.log("a question was selected with the string:" + x)
+}
 
 function selectOne() {
   document.getElementById("selector2").style.display = "none";
