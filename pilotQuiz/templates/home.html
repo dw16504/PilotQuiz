@@ -109,7 +109,7 @@ html,body,h1,h2,h3,h4,h5 {
 
 .responsive {
   width: auto;
-  height: 310px;
+  height: auto;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -125,7 +125,7 @@ html,body,h1,h2,h3,h4,h5 {
   margin-left: auto;
   margin-right: auto;
 
-  max-height: 85%;
+  max-height: 75%;
   max-width: 85%;
 }
 
@@ -220,25 +220,37 @@ html,body,h1,h2,h3,h4,h5 {
 
 <div class="mainOptionBlock">
 
+{% for Options in optionBank %}
 
 <hr>
 
   <div class="optionBlock">
     <div class="optionButtonBlock">
-      <a id="firstButton" class="w3-button option">
-        <i id ="selector1" style = "display:none" class="w3 fa fa-check"></i>
+
+      <a id="{{Options.3}}"  class="w3-button option">
+        <i id ="{{Options.4}}" style = "display:none" class="w3 fa fa-check"></i>
         <i class="w3-margin-left fa "></i></a>
     </div>
     <div class="optionTextBlock">
 
-        <h4 class="optionText">{{entry.answer}}</h4>
-        <p class="descriptor" id="descriptor1">Correct!  {{entry.answerDetails}}</p>
+        <h4 class="optionText">{{Options.0}}</h4>
+        <p class="descriptor" id="{{Options.5}}">{{Options.1}}</p>
 
     </div>
 
   </div>
 
+  {% endfor %}
+
   <hr>
+
+  </div>
+  <!-- strat block out
+  <hr>
+
+
+
+
 
     <div class="optionBlock">
       <div class="optionButtonBlock">
@@ -295,12 +307,11 @@ html,body,h1,h2,h3,h4,h5 {
 
     </div>
 
+    <end block out-->
 
   <a class="option w3-button w3-light-grey" onclick="document.getElementById('id01').style.display='block'" href="javascript:void(0)">See Image<i class="w3-margin-left"></i></a>
   <a class="option w3-button w3-light-grey" href="#">Comment<i class="w3-margin-left fa "></i></a>
   <a class="option w3-button w3-light-grey" href="#">Explain This<i class="w3-margin-left fa "></i></a>
-
-  <hr>
 
   <a class="option optionRowTwo w3-button w3-light-grey" id="submitButton">Submit<i class="w3-margin-left fa "></i></a>
   <a class="option optionRowTwo w3-button w3-light-grey" href="#">Next<i class="w3-margin-left fa fa-arrow-right"></i></a>
@@ -310,38 +321,7 @@ html,body,h1,h2,h3,h4,h5 {
 
 </div>
 
-<p>{{testvariable}}</p>
-<p> the data field says: {{entry.questionText}}</p>
 
-<p>this is an attempt to access the image outside the modal</p>
-
-<img src="{% static "Oops-computer-error.jpg" %}" alt=" still nothing, you fucking suck"/>
-
-<!--/Users/DWEBB/Desktop/Recovery/pilotQuiz/static/Oops-computer-error.jpg-->
-
-<div id="Jane" class="w3-container person">
-  <br>
-  <img class="w3-round w3-animate-top" src="/w3images/avatar5.png" style="width:20%;">
-  <h5 class="w3-opacity">Subject: None</h5>
-  <h4><i class="fa fa-clock-o"></i> From Jane Doe, Sep 25, 2015.</h4>
-  <a class="w3-button w3-light-grey">Reply<i class="w3-margin-left fa fa-mail-reply"></i></a>
-  <a class="w3-button w3-light-grey">Forward<i class="w3-margin-left fa fa-arrow-right"></i></a>
-  <hr>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-  <p>Forever yours,<br>Jane</p>
-</div>
-
-<div id="John" class="w3-container person">
-  <br>
-  <img class="w3-round w3-animate-top" src="/w3images/avatar2.png" style="width:20%;">
-  <h5 class="w3-opacity">Subject: None</h5>
-  <h4><i class="fa fa-clock-o"></i> From John Doe, Sep 23, 2015.</h4>
-  <a class="w3-button w3-light-grey">Reply<i class="w3-margin-left fa fa-mail-reply"></i></a>
-  <a class="w3-button w3-light-grey">Forward<i class="w3-margin-left fa fa-arrow-right"></i></a>
-  <hr>
-  <p>Welcome.</p>
-  <p>That's it!</p>
-</div>
 
 </div>
 
@@ -358,11 +338,11 @@ document.getElementById('submitButton').addEventListener("click", submitSelectio
 
 
 
-document.getElementById("firstButton").addEventListener("click", selectOne);
-document.getElementById("secondButton").addEventListener("click", selectTwo);
-document.getElementById("thirdButton").addEventListener("click", selectThree);
-document.getElementById("fourthButton").addEventListener("click", selectFour);
-
+document.getElementById("Button1").addEventListener("click", selectOne);
+document.getElementById("Button2").addEventListener("click", selectTwo);
+document.getElementById("Button3").addEventListener("click", selectThree);
+document.getElementById("Button4").addEventListener("click", selectFour);
+document.getElementById("Button5").addEventListener("click", selectFive);
 
 function questionSelect(x){
   selectedFromSideBar = x;
@@ -374,6 +354,7 @@ function selectOne() {
   document.getElementById("selector1").style.display = "block";
   document.getElementById("selector3").style.display = "none";
   document.getElementById("selector4").style.display = "none";
+  document.getElementById("selector5").style.display = "none";
   selected = 1;
   console.log("Selected is " + selected);
 }
@@ -383,6 +364,7 @@ function selectTwo() {
   document.getElementById("selector2").style.display = "block";
   document.getElementById("selector3").style.display = "none";
   document.getElementById("selector4").style.display = "none";
+  document.getElementById("selector5").style.display = "none";
   selected = 2;
   console.log("Selected is " + selected);
 }
@@ -392,6 +374,7 @@ function selectThree() {
   document.getElementById("selector3").style.display = "block";
   document.getElementById("selector2").style.display = "none";
   document.getElementById("selector4").style.display = "none";
+  document.getElementById("selector5").style.display = "none";
   selected = 3;
   console.log("Selected is " + selected);
 }
@@ -401,14 +384,27 @@ function selectFour() {
   document.getElementById("selector4").style.display = "block";
   document.getElementById("selector2").style.display = "none";
   document.getElementById("selector3").style.display = "none";
+  document.getElementById("selector5").style.display = "none";
   selected = 4;
   console.log("Selected is " + selected);
 }
 
+function selectFive() {
+  document.getElementById("selector1").style.display = "none";
+  document.getElementById("selector4").style.display = "none";
+  document.getElementById("selector2").style.display = "none";
+  document.getElementById("selector3").style.display = "none";
+  document.getElementById("selector5").style.display = "block";
+  selected = 5;
+  console.log("Selected is " + selected);
+}
+
+
+
 function submitSelection(){
 
         if (selected == 1){
-            document.getElementById("firstButton").style.backgroundColor = "#BFEDC1"
+            document.getElementById("Button1").style.backgroundColor = "#BFEDC1"
             document.getElementById("selector1").style.color = "green"
             document.getElementById("descriptor1").style.display = "block"
             document.getElementById("descriptor1").style.color = "green"
@@ -417,7 +413,7 @@ function submitSelection(){
 
 
         if (selected == 2){
-           document.getElementById("secondButton").style.backgroundColor = "#F5A9A9";
+           document.getElementById("Button2").style.backgroundColor = "#F5A9A9";
            document.getElementById("selector2").style.color = "red";
            document.getElementById("selector2").className ="w3 fa fa-times";
            document.getElementById("descriptor2").style.display = "block"
@@ -427,7 +423,7 @@ function submitSelection(){
 
 
         if (selected == 3){
-           document.getElementById("thirdButton").style.backgroundColor = "#F5A9A9";
+           document.getElementById("Button3").style.backgroundColor = "#F5A9A9";
            document.getElementById("selector"+selected).style.color = "red";
            document.getElementById("selector"+selected).className ="w3 fa fa-times";
            document.getElementById("descriptor"+selected  ).style.display = "block"
@@ -436,7 +432,7 @@ function submitSelection(){
         }
 
         if (selected == 4){
-           document.getElementById("fourthButton").style.backgroundColor = "#F5A9A9";
+           document.getElementById("Button4").style.backgroundColor = "#F5A9A9";
            document.getElementById("selector4").style.color = "red";
            document.getElementById("selector4").className ="w3 fa fa-times";
            document.getElementById("descriptor4").style.display = "block"
@@ -444,6 +440,16 @@ function submitSelection(){
 
         }
 
+        if (selected == 5){
+           document.getElementById("Button5").style.backgroundColor = "#F5A9A9";
+           document.getElementById("selector5").style.color = "red";
+           document.getElementById("selector5").className ="w3 fa fa-times";
+           document.getElementById("descriptor5").style.display = "block"
+           document.getElementById("descriptor5").style.color = "red"
+
+        }
+
+      
       }
 
 
